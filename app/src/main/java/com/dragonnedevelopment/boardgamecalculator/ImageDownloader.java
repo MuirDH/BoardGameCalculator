@@ -42,7 +42,7 @@ public class ImageDownloader {
         games.add(new Game(context.getString(R.string.catan_game_name), catanResourceId));
         games.add(new Game(context.getString(R.string.takenoko_game_name), takenokoResourceId));
         games.add(new Game(context.getString(R.string.singlepoint_game_name), plusMinusResourceId));
-        
+
         callback.onDone(games);
 
     }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/playerBar1"
+        style="@style/PlayerBarLayoutTheme">
+
+        <Button
+            android:id="@+id/expandableButton1"
+            style="@style/PlayerBarButtonTheme"
+            android:onClick="expandableButton1" />
+
+        <EditText
+            android:id="@+id/player1"
+            style="@style/PlayerBarNameTextTheme"
+            android:layout_toRightOf="@+id/expandableButton1" />
+
+        <TextView
+            android:id="@+id/score1"
+            android:layout_toRightOf="@+id/player1"
+            style="@style/PlayerBarScoreLabelTheme" />
+
+        <TextView
+            android:id="@+id/scoreAmount1"
+            style="@style/PlayerBarScoreAmountTheme"
+            android:layout_toRightOf="@id/score1" />
+
+    </RelativeLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/expandableScoreCalculator1"
+        android:layout_below="@+id/playerBar1"
+        android:background="@color/light_red"
+        android:padding="8dp"
+        app:ael_expanded="true"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <!-- Label and score for Military Conflicts -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/militaryConflictsLabel"
+            android:text="@string/military_conflicts"
+            android:paddingTop="12dp"
+            android:paddingRight="8dp"
+            android:labelFor="@id/militaryConflictsScore"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:text="@string/defaultScoreAmount"
+            android:layout_toRightOf="@+id/militaryConflictsLabel"
+            android:id="@+id/militaryConflictsScore"
+
+            />
+
+        <!-- Label and score for Treasury Contents -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/treasuryContentsLabel"
+            android:layout_toRightOf="@id/militaryConflictsScore"
+            android:text="@string/treasury_contents"
+            android:paddingTop="12dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="8dp"
+            android:labelFor="@+id/treasuryContentsScore"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/treasuryContentsScore"
+            android:inputType="number"
+            android:text="@string/defaultScoreAmount"
+            android:layout_toRightOf="@id/treasuryContentsLabel"/>
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+</RelativeLayout>

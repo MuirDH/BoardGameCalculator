@@ -1,5 +1,8 @@
 <resources>
+    <!-- Name of app-->
     <string name="app_name">Board Game Calculator</string>
+
+    <!-- Game names for menu -->
     <string name="alhambra_game_name">Alhambra</string>
     <string name="ascension_game_name">Ascension</string>
     <string name="catan_game_name">Settlers of Catan</string>
@@ -9,4 +12,11 @@
     <string name="takenoko_game_name">Takenoko</string>
     <string name="singlepoint_game_name">Single Point Games</string>
     <string name="menu_title">Menu</string>
+
+    <!-- Player info for expandable list banner -->
+    <string name="player_name">Player Name</string>
+    <string name="score">Score:</string>
+    <string name="defaultScoreAmount">0</string>
+    <string name="military_conflicts">Military Conflicts:</string>
+    <string name="treasury_contents">Treasury Contents:</string>
 </resources>

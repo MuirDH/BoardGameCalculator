@@ -14,4 +14,46 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
+    <!-- Player bar themes for expandable lists -->
+    <style name="PlayerBarLayoutTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/player_bar_height</item>
+        <item name="android:background">@color/red</item>
+    </style>
+
+    <style name="PlayerBarButtonTheme">
+        <item name="android:layout_width">@dimen/player_bar_button_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/red</item>
+        <item name="android:drawableRight">@android:drawable/arrow_down_float</item>
+        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
+    </style>
+
+    <style name="PlayerBarNameTextTheme">
+        <item name="android:layout_width">@dimen/player_bar_name_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:hint">@string/player_name</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
+    </style>
+
+    <style name="PlayerBarScoreLabelTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
+        <item name="android:text">@string/score</item>
+        <item name="android:textSize">@dimen/score_text_size</item>
+    </style>
+
+    <style name="PlayerBarScoreAmountTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
+        <item name="android:text">@string/defaultScoreAmount</item>
+        <item name="android:textSize">@dimen/score_text_size</item>
+    </style>
+
+
 </resources>
