@@ -8,4 +8,5 @@
     <string name="sevenwonders_game_name">7 Wonders</string>
     <string name="takenoko_game_name">Takenoko</string>
     <string name="singlepoint_game_name">Single Point Games</string>
+    <string name="menu_title">Menu</string>
 </resources>
