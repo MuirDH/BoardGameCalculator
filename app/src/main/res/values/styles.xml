@@ -21,38 +21,58 @@
         <item name="android:background">@color/red</item>
     </style>
 
-    <style name="PlayerBarButtonTheme">
+    <style name="PlayerBarParentTheme">
+        <item name="android:layout_height">match_parent</item>"
+        <item name="android:paddingEnd">@dimen/player_bar_right_padding</item>
+    </style>
+
+    <style name="PlayerBarButtonTheme" parent="PlayerBarParentTheme">
         <item name="android:layout_width">@dimen/player_bar_button_width</item>
-        <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/red</item>
         <item name="android:drawableRight">@android:drawable/arrow_down_float</item>
-        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
     </style>
 
-    <style name="PlayerBarNameTextTheme">
+    <style name="PlayerBarNameTextTheme" parent="PlayerBarParentTheme">
         <item name="android:layout_width">@dimen/player_bar_name_width</item>
-        <item name="android:layout_height">match_parent</item>
         <item name="android:hint">@string/player_name</item>
         <item name="android:inputType">textPersonName</item>
-        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
     </style>
 
-    <style name="PlayerBarScoreLabelTheme">
+    <style name="PlayerBarScoreLabelTheme" parent="PlayerBarParentTheme">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
         <item name="android:text">@string/score</item>
         <item name="android:textSize">@dimen/score_text_size</item>
     </style>
 
-    <style name="PlayerBarScoreAmountTheme">
+    <style name="PlayerBarScoreAmountTheme" parent="PlayerBarParentTheme">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingRight">@dimen/player_bar_right_padding</item>
         <item name="android:text">@string/defaultScoreAmount</item>
         <item name="android:textSize">@dimen/score_text_size</item>
+    </style>
+
+    <!-- Themes for 7 Wonders Score sheet -->
+    <!-- Label Themes -->
+    <style name="SevenWondersScoreSheetLabelsTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/seven_wonders_label_bottom_padding</item>
+        <item name="android:paddingEnd">@dimen/seven_wonders_label_right_padding</item>
+        <item name="android:paddingTop">@dimen/seven_wonders_label_top_padding</item>
+        <item name="android:paddingStart">@dimen/seven_wonders_label_left_padding_8</item>
+    </style>
+
+    <style name="SevenWondersScoreSheetRightSideTheme" parent="SevenWondersScoreSheetLabelsTheme">
+        <item name="android:paddingStart">@dimen/seven_wonders_label_left_padding</item>
+    </style>
+
+    <!-- Score Themes -->
+    <style name="SevenWondersScoreTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/defaultScoreAmount</item>
+        <item name="android:inputType">number</item>
     </style>
 
 

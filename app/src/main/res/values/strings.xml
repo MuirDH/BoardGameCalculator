@@ -19,4 +19,9 @@
     <string name="defaultScoreAmount">0</string>
     <string name="military_conflicts">Military Conflicts:</string>
     <string name="treasury_contents">Treasury Contents:</string>
+    <string name="wonders">Wonders:</string>
+    <string name="civilianStructures">Civilian Structures:</string>
+    <string name="scientific_structures">Science Structs:</string>
+    <string name="commercialStructures">Comm Structures:</string>
+    <string name="guilds">Guilds:</string>
 </resources>

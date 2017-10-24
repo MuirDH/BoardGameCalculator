@@ -16,70 +16,141 @@
         <EditText
             android:id="@+id/player1"
             style="@style/PlayerBarNameTextTheme"
-            android:layout_toRightOf="@+id/expandableButton1" />
+            android:layout_toEndOf="@+id/expandableButton1" />
 
         <TextView
             android:id="@+id/score1"
-            android:layout_toRightOf="@+id/player1"
-            style="@style/PlayerBarScoreLabelTheme" />
+            style="@style/PlayerBarScoreLabelTheme"
+            android:layout_toEndOf="@+id/player1" />
 
         <TextView
             android:id="@+id/scoreAmount1"
             style="@style/PlayerBarScoreAmountTheme"
-            android:layout_toRightOf="@id/score1" />
+            android:layout_toEndOf="@id/score1" />
 
     </RelativeLayout>
 
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableScoreCalculator1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/expandableScoreCalculator1"
         android:layout_below="@+id/playerBar1"
         android:background="@color/light_red"
-        android:padding="8dp"
+        android:padding="16dp"
         app:ael_expanded="true"
         app:ael_interpolator="bounce"
-        app:ael_orientation="vertical">
+        android:layout_alignParentEnd="true">
 
         <!-- Label and score for Military Conflicts -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/militaryConflictsLabel"
+            style="@style/SevenWondersScoreSheetLabelsTheme"
+            android:labelFor="@id/militaryConflictsScore"
             android:text="@string/military_conflicts"
-            android:paddingTop="12dp"
-            android:paddingRight="8dp"
-            android:labelFor="@id/militaryConflictsScore"/>
+            android:background="@color/red" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:text="@string/defaultScoreAmount"
-            android:layout_toRightOf="@+id/militaryConflictsLabel"
             android:id="@+id/militaryConflictsScore"
-
-            />
+            style="@style/SevenWondersScoreTheme"
+            android:layout_toEndOf="@+id/militaryConflictsLabel"
+            android:inputType="numberSigned" />
 
         <!-- Label and score for Treasury Contents -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/treasuryContentsLabel"
-            android:layout_toRightOf="@id/militaryConflictsScore"
+            style="@style/SevenWondersScoreSheetRightSideTheme"
+            android:layout_toEndOf="@id/militaryConflictsScore"
+            android:labelFor="@+id/treasuryContentsScore"
             android:text="@string/treasury_contents"
-            android:paddingTop="12dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="8dp"
-            android:labelFor="@+id/treasuryContentsScore"/>
+            android:background="@color/amber" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/treasuryContentsScore"
-            android:inputType="number"
-            android:text="@string/defaultScoreAmount"
-            android:layout_toRightOf="@id/treasuryContentsLabel"/>
+            style="@style/SevenWondersScoreTheme"
+            android:layout_toEndOf="@id/treasuryContentsLabel" />
+
+        <!-- Label and score for Wonders -->
+        <TextView
+            android:id="@+id/wondersLabel"
+            style="@style/SevenWondersScoreSheetLabelsTheme"
+            android:layout_below="@id/militaryConflictsLabel"
+            android:labelFor="@+id/wondersScore"
+            android:paddingEnd="@dimen/wonders_label_right_padding"
+            android:text="@string/wonders"
+            android:background="@android:color/black"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/wondersScore"
+            style="@style/SevenWondersScoreTheme"
+            android:layout_below="@+id/militaryConflictsScore"
+            android:layout_toEndOf="@+id/wondersLabel" />
+
+        <!-- Label and score for Civilian Structures -->
+        <TextView
+            android:id="@+id/civilianStructuresLabel"
+            style="@style/SevenWondersScoreSheetRightSideTheme"
+            android:layout_below="@+id/treasuryContentsLabel"
+            android:layout_toEndOf="@+id/wondersScore"
+            android:labelFor="@id/civilianStructuresScore"
+            android:text="@string/civilianStructures"
+            android:paddingEnd="9dp"
+            android:background="@color/blue" />
+
+        <EditText
+            android:id="@+id/civilianStructuresScore"
+            style="@style/SevenWondersScoreTheme"
+            android:layout_below="@+id/treasuryContentsScore"
+            android:layout_toEndOf="@id/civilianStructuresLabel" />
+
+        <!-- Label and score for Scientific Structures -->
+        <TextView
+            android:id="@+id/scientificStructuresLabel"
+            style="@style/SevenWondersScoreSheetLabelsTheme"
+            android:layout_below="@+id/wondersLabel"
+            android:labelFor="@+id/scientificStructuresScore"
+            android:text="@string/scientific_structures"
+            android:paddingEnd="14dp"
+            android:background="@color/green" />
+
+        <EditText
+            android:id="@+id/scientificStructuresScore"
+            style="@style/SevenWondersScoreTheme"
+            android:layout_below="@id/wondersScore"
+            android:layout_toEndOf="@id/scientificStructuresLabel" />
+
+        <!-- Label and score for Commercial Structures -->
+        <TextView
+            android:id="@+id/commercialStructuresLabel"
+            style="@style/SevenWondersScoreSheetRightSideTheme"
+            android:layout_below="@id/civilianStructuresLabel"
+            android:layout_toEndOf="@+id/scientificStructuresScore"
+            android:labelFor="@+id/commercialStructuresScore"
+            android:text="@string/commercialStructures"
+            android:paddingEnd="12dp"
+            android:background="@color/orange" />
+
+        <EditText
+            android:id="@+id/commercialStructuresScore"
+            style="@style/SevenWondersScoreTheme"
+            android:layout_below="@id/civilianStructuresScore"
+            android:layout_toEndOf="@+id/commercialStructuresLabel" />
+
+        <!-- Label and score for Guilds -->
+        <TextView
+            android:id="@+id/guildsLabel"
+            style="@style/SevenWondersScoreSheetLabelsTheme"
+            android:layout_below="@+id/scientificStructuresLabel"
+            android:labelFor="@+id/guildsScore"
+            android:text="@string/guilds"
+            android:paddingEnd="73dp"
+            android:background="@color/purple" />
+
+        <EditText
+            android:id="@+id/guildsScore"
+            style="@style/SevenWondersScoreTheme"
+            android:layout_below="@+id/scientificStructuresScore"
+            android:layout_toEndOf="@+id/guildsLabel" />
 
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 

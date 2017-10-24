@@ -7,5 +7,9 @@
     <color name="white">#ffffff</color>
     <color name="blue">#00abea</color>
     <color name="red">#ef5350</color>
-    <color name="light_red">#ef9a9a</color>
+    <color name="light_red">#ffebee</color>
+    <color name="amber">#ffd54f</color>
+    <color name="green">#66bb6a</color>
+    <color name="orange">#ffa726</color>
+    <color name="purple">#ce93d8</color>
 </resources>
