@@ -13,7 +13,8 @@
     <string name="singlepoint_game_name">Single Point Games</string>
     <string name="menu_title">Menu</string>
 
-    <!-- Player info for expandable list banner -->
+    <SevenWondersPlayerayer info for expandable list banner
+    -->
     <string name="player_name">Player Name</string>
     <string name="score">Score:</string>
     <string name="defaultScoreAmount">0</string>
@@ -21,7 +22,12 @@
     <string name="treasury_contents">Treasury Contents:</string>
     <string name="wonders">Wonders:</string>
     <string name="civilianStructures">Civilian Structures:</string>
-    <string name="scientific_structures">Science Structs:</string>
-    <string name="commercialStructures">Comm Structures:</string>
+    <string name="scientific_structures">Scientific Structures:</string>
+    <string name="commercialStructures">Commercial Structures:</string>
     <string name="guilds">Guilds:</string>
+    <string name="identicalSymbols">Identical Symbol Sets:</string>
+    <string name="differentSymbols">Diff Symbol Sets:</string>
+    <string name="protractorSets">Protractor Sets:</string>
+    <string name="tabletSets">Tablet Sets:</string>
+    <string name="cogSets">Cog Sets:</string>
 </resources>

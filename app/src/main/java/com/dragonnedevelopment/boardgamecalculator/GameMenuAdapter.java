@@ -27,9 +27,9 @@ public class GameMenuAdapter extends ArrayAdapter<Game> {
 
     private Context context;
     private int layoutResourceId;
-    private ArrayList data = new ArrayList();
+    private ArrayList<Game> data = new ArrayList<>();
 
-    public GameMenuAdapter(Context context, int layoutResourceId, ArrayList data) {
+    public GameMenuAdapter(Context context, int layoutResourceId, ArrayList<Game> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -41,6 +41,7 @@ public class GameMenuAdapter extends ArrayAdapter<Game> {
         ImageView image;
     }
 
+    @NonNull
     @Override
     // Create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -56,12 +57,12 @@ public class GameMenuAdapter extends ArrayAdapter<Game> {
             holder.imageTitle = (TextView) convertView.findViewById(R.id.game_grid_name);
             holder.image = (ImageView) convertView.findViewById(R.id.image);
             convertView.setTag(holder);
-        }else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+        } else holder = (ViewHolder) convertView.getTag();
 
-        holder.imageTitle.setText(currentGame.getGameName());
-        holder.image.setImageResource(currentGame.getImageResourceId());
+        if (currentGame != null) {
+            holder.imageTitle.setText(currentGame.getGameName());
+            holder.image.setImageResource(currentGame.getImageResourceId());
+        }
         return convertView;
     }
 }

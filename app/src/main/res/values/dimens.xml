@@ -6,10 +6,7 @@
     <dimen name="player_bar_right_padding">8dp</dimen>
     <dimen name="player_bar_name_width">200dp</dimen>
     <dimen name="score_text_size">20sp</dimen>
-    <dimen name="seven_wonders_label_bottom_padding">14dp</dimen>
-    <dimen name="seven_wonders_label_right_padding">8dp</dimen>
-    <dimen name="seven_wonders_label_top_padding">12dp</dimen>
-    <dimen name="seven_wonders_label_left_padding">16dp</dimen>
-    <dimen name="wonders_label_right_padding">57dp</dimen>
-    <dimen name="seven_wonders_label_left_padding_8">8dp</dimen>
+
+    <dimen name="seven_wonders_label_padding">16dp</dimen>
+
 </resources>

@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SevenWondersActivity" />
+        <activity android:name=".AlhambraActivity" />
+        <activity android:name=".AscensionActivity" />
+        <activity android:name=".CatanActivity" />
+        <activity android:name=".CavernaActivity" />
+        <activity android:name=".EclipseActivity" />
+        <activity android:name=".SinglePointActivity" />
+        <activity android:name=".TakenokoActivity" />
     </application>
 
 </manifest>

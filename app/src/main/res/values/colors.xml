@@ -10,6 +10,9 @@
     <color name="light_red">#ffebee</color>
     <color name="amber">#ffd54f</color>
     <color name="green">#66bb6a</color>
+    <color name="med_green">#c8e6c9</color>
+    <color name="light_green">#e8f5e9</color>
     <color name="orange">#ffa726</color>
     <color name="purple">#ce93d8</color>
+    <color name="pink">#f06292</color>
 </resources>
