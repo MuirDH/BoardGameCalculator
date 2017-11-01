@@ -43,7 +43,7 @@ public class SevenWondersActivity extends AppCompatActivity {
     }
 
 
-    // Set up the item click listener for adding a sevenWondersPlayer
+    // Add a new player to the database and add a player score card to the view
     public void addPlayer(View view) {
         sevenWondersPlayer = new SevenWondersPlayer(playerName, playerTotalScore, playerMilitary,
                 playerTreasury, playerWonder, playerCivilian, playerScientificTotalScore,
