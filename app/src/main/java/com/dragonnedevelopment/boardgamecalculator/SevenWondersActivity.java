@@ -27,7 +27,7 @@ public class SevenWondersActivity extends AppCompatActivity implements
     SevenWondersCursorAdapter cursorAdapter;
 
     ExpandableRelativeLayout expandableLayoutSevenWonders;
-    RelativeLayout scoreCardLayout;
+
     SevenWondersPlayer sevenWondersPlayer;
 
     String playerName;
@@ -52,6 +52,8 @@ public class SevenWondersActivity extends AppCompatActivity implements
 
         // find the ListView which will be populated with the player data
         final ListView playerListView = (ListView) findViewById(R.id.sevenWondersList);
+
+        final RelativeLayout scoreCardLayout = (RelativeLayout) findViewById(R.id.playerScoreCard);
 
 
         // find and set empty view on the ListView, so that it only shows when the list has 0 items
@@ -79,6 +81,7 @@ public class SevenWondersActivity extends AppCompatActivity implements
                         playerCogSets, playerDifferentSets, playerCommercial, playerGuilds);
 
                 
+                cursorAdapter.notifyDataSetChanged();
             }
         });
 
