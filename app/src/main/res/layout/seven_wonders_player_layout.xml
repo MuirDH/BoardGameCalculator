@@ -18,20 +18,20 @@
             android:onClick="expandableButton1" />
 
         <EditText
-            android:id="@+id/player1"
+            android:id="@+id/playerSevenWonders"
             style="@style/PlayerBarNameTextTheme"
             android:layout_toEndOf="@+id/expandableButton1"
             tools:ignore="LabelFor" />
 
         <TextView
-            android:id="@+id/score1"
+            android:id="@+id/scoreTotalLabelSevenWonders"
             style="@style/PlayerBarScoreLabelTheme"
-            android:layout_toEndOf="@+id/player1" />
+            android:layout_toEndOf="@+id/playerSevenWonders" />
 
         <TextView
-            android:id="@+id/scoreAmount1"
+            android:id="@+id/scoreTotalSevenWonders"
             style="@style/PlayerBarScoreAmountTheme"
-            android:layout_toEndOf="@id/score1" />
+            android:layout_toEndOf="@id/scoreTotalLabelSevenWonders" />
 
     </RelativeLayout>
 
@@ -144,7 +144,7 @@
             android:labelFor="@+id/identicalScientificSymbolsScore"
             android:text="@string/identicalSymbols" />
 
-        <EditText
+        <TextView
             android:id="@+id/identicalScientificSymbolsScore"
             style="@style/SevenWondersScoreTheme"
             android:layout_below="@+id/scientificStructuresScore"

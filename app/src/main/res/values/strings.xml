@@ -13,8 +13,7 @@
     <string name="singlepoint_game_name">Single Point Games</string>
     <string name="menu_title">Menu</string>
 
-    <SevenWondersPlayerayer info for expandable list banner
-    -->
+    <!-- SevenWonders Player info for expandable list banner-->
     <string name="player_name">Player Name</string>
     <string name="score">Score:</string>
     <string name="defaultScoreAmount">0</string>
@@ -30,4 +29,6 @@
     <string name="protractorSets">Protractor Sets:</string>
     <string name="tabletSets">Tablet Sets:</string>
     <string name="cogSets">Cog Sets:</string>
+    <string name="sevenwonders_empty_view_title">The game is set up...</string>
+    <string name="sevenwonders_empty_view_subtitle">Add the players and start playing!</string>
 </resources>

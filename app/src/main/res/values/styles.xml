@@ -14,8 +14,7 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
-    <SevenWondersPlayerayer bar themes for expandable lists
-    -->
+    <!-- SevenWonders Player bar themes for expandable list-->
     <style name="PlayerBarLayoutTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/player_bar_height</item>

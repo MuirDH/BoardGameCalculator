@@ -1,34 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Layout for 7 Wonders. -->
+<!-- Layout for the list of players for 7 Wonders. -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sevenWondersBaseActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <ListView
+        android:id="@+id/sevenWondersList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Empty view for the list -->
+    <RelativeLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sevenWondersEmptyView"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emptySevenWondersImage"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_face_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sevenWondersEmptyTitleText"
+            android:layout_below="@id/emptySevenWondersImage"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:paddingTop="8dp"
+            android:text="@string/sevenwonders_empty_view_title"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sevenWondersEmptySubtitleText"
+            android:layout_below="@id/sevenWondersEmptyTitleText"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:paddingTop="4dp"
+            android:text="@string/sevenwonders_empty_view_subtitle"
+            android:textAppearance="?android:textAppearanceSmall" />
+    </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSevenWondersAddPlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:clickable="true"
-            android:onClick="addPlayer"
             android:src="@drawable/ic_add"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.908"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.968" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            app:fabSize="normal" />
 
-    </android.support.constraint.ConstraintLayout>
-
-</ScrollView>
+</RelativeLayout>
