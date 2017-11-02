@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!-- Layout for a single player summary in 7 Wonders -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/playerBar1"
+    style="@style/PlayerBarLayoutTheme">
+
+    <TextView
+        android:id="@+id/playerSevenWonders"
+        style="@style/PlayerBarScoreLabelTheme"
+        android:text="@string/player_name"
+        android:padding="8dp"
+        android:paddingEnd="100dp"
+        android:paddingStart="8dp" />
+
+    <TextView
+        android:id="@+id/scoreTotalLabelSevenWonders"
+        style="@style/PlayerBarScoreLabelTheme"
+        android:layout_toEndOf="@+id/playerSevenWonders" />
+
+    <TextView
+        android:id="@+id/scoreTotalSevenWonders"
+        style="@style/PlayerBarScoreAmountTheme"
+        android:layout_toEndOf="@id/scoreTotalLabelSevenWonders" />
+
+</RelativeLayout>

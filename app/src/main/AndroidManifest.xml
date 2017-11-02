@@ -24,6 +24,8 @@
         <activity android:name=".EclipseActivity" />
         <activity android:name=".SinglePointActivity" />
         <activity android:name=".TakenokoActivity" />
+        <activity android:name=".SevenWondersEditorActivity" />
+
     </application>
 
 </manifest>

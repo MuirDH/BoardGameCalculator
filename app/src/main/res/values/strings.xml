@@ -29,6 +29,11 @@
     <string name="protractorSets">Protractor Sets:</string>
     <string name="tabletSets">Tablet Sets:</string>
     <string name="cogSets">Cog Sets:</string>
-    <string name="sevenwonders_empty_view_title">The game is set up...</string>
+    <string name="sevenwonders_empty_view_title">The game is set up…</string>
     <string name="sevenwonders_empty_view_subtitle">Add the players and start playing!</string>
+    <string name="unknown_player_name">Player</string>
+    <string name="editor_activity_title_new_player">Add a Player</string>
+    <string name="editor_activity_title_edit_player">Edit Player Scores</string>
+    <string name="insert_player_failed">Player save failed</string>
+    <string name="insert_player_successful">Player save was successful</string>
 </resources>
