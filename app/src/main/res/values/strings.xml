@@ -36,4 +36,14 @@
     <string name="editor_activity_title_edit_player">Edit Player Scores</string>
     <string name="insert_player_failed">Player save failed</string>
     <string name="insert_player_successful">Player save was successful</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="delete_dialog_msg">Delete this Player?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="editor_delete_player_failed">Player Deletion Failed</string>
+    <string name="editor_delete_player_successful">The Player was deleted</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
 </resources>

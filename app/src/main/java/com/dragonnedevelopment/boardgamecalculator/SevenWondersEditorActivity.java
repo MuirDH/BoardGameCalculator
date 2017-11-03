@@ -9,19 +9,24 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.*;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dragonnedevelopment.boardgamecalculator.data.GamesContract.PlayerEntry;
 
 /**
  * BoardGameCalculator Created by Muir on 02/11/2017.
+ * <p>
+ * allows user to create a new player or edit an existing one
  */
 
 public class SevenWondersEditorActivity extends AppCompatActivity
@@ -36,6 +41,9 @@ public class SevenWondersEditorActivity extends AppCompatActivity
     // EditText field to enter the player's name
     private EditText playerNameEditText;
 
+    //TextView field which stores the player's total score
+    private TextView playerScoreText;
+
     // EditText field to enter the military conflict points
     private EditText playerMilitaryPoints;
 
@@ -47,6 +55,9 @@ public class SevenWondersEditorActivity extends AppCompatActivity
 
     // EditText field to enter the civilian structures points
     private EditText playerCivilianPoints;
+
+    // TextView field to enter the total scientific points
+    private TextView playerScienceTotalPoints;
 
     // EditText field to enter the number of protractors (science)
     private EditText playerProtractorsAmt;
@@ -66,6 +77,7 @@ public class SevenWondersEditorActivity extends AppCompatActivity
     // EditText field to enter the guilds points
     private EditText playerGuildsPoints;
 
+
     // Boolean flag that keeps track of whether the pet has been edited (true) or not (false)
     private boolean playerHasChanged = false;
 
@@ -82,7 +94,7 @@ public class SevenWondersEditorActivity extends AppCompatActivity
     };
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seven_wonders_player_layout);
 
@@ -94,10 +106,12 @@ public class SevenWondersEditorActivity extends AppCompatActivity
 
         // Find all relevant views that we will need to read user input from
         playerNameEditText = (EditText) findViewById(R.id.playerSevenWonders);
+        playerScoreText = (TextView) findViewById(R.id.scoreTotalSevenWonders);
         playerMilitaryPoints = (EditText) findViewById(R.id.militaryConflictsScore);
         playerTreasuryPoints = (EditText) findViewById(R.id.treasuryContentsScore);
         playerWonderPoints = (EditText) findViewById(R.id.wondersScore);
         playerCivilianPoints = (EditText) findViewById(R.id.civilianStructuresScore);
+        playerScienceTotalPoints = (TextView) findViewById(R.id.scientificStructuresScore);
         playerProtractorsAmt = (EditText) findViewById(R.id.numberOfProtractorSets);
         playerTabletsAmt = (EditText) findViewById(R.id.numberOfTabletSets);
         playerCogsAmt = (EditText) findViewById(R.id.numberOfCogSets);
@@ -137,7 +151,6 @@ public class SevenWondersEditorActivity extends AppCompatActivity
             // this is a new player, so change the app bar to say "Add a player"
             setTitle(getString(R.string.editor_activity_title_new_player));
 
-
         /*
          * Invalidate the options menu, so the "Delete" menu option can be hidden. (It doesn't make
          * sense to delete a player that hasn't been created yet
@@ -164,10 +177,12 @@ public class SevenWondersEditorActivity extends AppCompatActivity
          * Use trim to eliminate leading or trailing white space
          */
         String nameString = playerNameEditText.getText().toString().trim();
+        String scoreString = playerScoreText.getText().toString().trim();
         String militaryString = playerMilitaryPoints.getText().toString().trim();
         String treasuryString = playerTreasuryPoints.getText().toString().trim();
         String wonderString = playerWonderPoints.getText().toString().trim();
         String civilianString = playerCivilianPoints.getText().toString().trim();
+        String scienceString = playerScienceTotalPoints.getText().toString().trim();
         String protractorsString = playerProtractorsAmt.getText().toString().trim();
         String tabletsString = playerTabletsAmt.getText().toString().trim();
         String cogsString = playerCogsAmt.getText().toString().trim();
@@ -191,16 +206,23 @@ public class SevenWondersEditorActivity extends AppCompatActivity
          * an integer value. Use 0 by default
          */
 
+        int score = 0;
         int military = 0;
         int treasury = 0;
         int wonder = 0;
         int civilian = 0;
+        int science = 0;
         int protractors = 0;
         int tablets = 0;
         int cogs = 0;
         int diffScienceSets = 0;
         int commercial = 0;
         int guilds = 0;
+
+        if (!TextUtils.isEmpty(scoreString)) {
+            score = Integer.parseInt(scoreString);
+        }
+        values.put(PlayerEntry.COLUMN_TOTAL, scoreString);
 
         if (!TextUtils.isEmpty(militaryString)) {
             military = Integer.parseInt(militaryString);
@@ -221,6 +243,11 @@ public class SevenWondersEditorActivity extends AppCompatActivity
             civilian = Integer.parseInt(civilianString);
         }
         values.put(PlayerEntry.COLUMN_CIVILIAN_STRUCTURES, civilianString);
+
+        if (!TextUtils.isEmpty(scienceString)) {
+            science = Integer.parseInt(scienceString);
+        }
+        values.put(PlayerEntry.COLUMN_SCIENTIFIC_STRUCTURES_TOTAL, scienceString);
 
         if (!TextUtils.isEmpty(protractorsString)) {
             protractors = Integer.parseInt(protractorsString);
@@ -313,21 +340,20 @@ public class SevenWondersEditorActivity extends AppCompatActivity
          * Inflate the menu options form the res/menu/menu_editor.xml file. This adds menu items
          * to the app bar.
          */
-        // TODO: Create menu_editor.xml
-        //getMenuInflater().inflate(R.menu.menu_editor, menu);
+        getMenuInflater().inflate(R.menu.menu_editor, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
+        super.onPrepareOptionsMenu(menu);
 
         // If this is a new player, hide the "Delete" menu item.
-        // TODO: create delete menu item
-        //if (currentPlayerUri == null) {
-        //    MenuItem menuItem = menu.findItem(R.id.action_delete);
-        //    menuItem.setVisible(false);
-        //}
+        if (currentPlayerUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+        }
+        return true;
     }
 
     @Override
@@ -336,18 +362,17 @@ public class SevenWondersEditorActivity extends AppCompatActivity
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
 
-            // TODO: create Save menu item
-            //case R.id.action_save:
-            // Save player to database
-            //  savePlayer();
-            // Exit activity
-            //finish();
-            //return true;
+            case R.id.action_save:
+                //Save player to database
+                savePlayer();
+                // Exit activity
+                finish();
+                return true;
             // Respond to a click on the "Delete menu option
-            //case R.id.action_delete:
-            //Pop up confirmation dialog for deletion
-            //showDeleteConfirmationDialog();
-            //return true;
+            case R.id.action_delete:
+                //Pop up confirmation dialog for deletion
+                showDeleteConfirmationDialog();
+                return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
                 /*
@@ -406,10 +431,89 @@ public class SevenWondersEditorActivity extends AppCompatActivity
     }
 
 
-    private void showUnsavedChangesDialog(OnClickListener discardButtonClickListener) {
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
+        /*
+         * Create an AlertDialog.Builder and set the message and click listeners for the positive
+         * and negative buttons on the dialog.
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                /*
+                 * User clicked the "Keep Editing" button, so dismiss the dialog and continue
+                 * editing the player.
+                 */
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        // create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void showDeleteConfirmationDialog() {
+        /*
+         * Create an AlertDialog.Builder and set the message and click listeners for the positive
+         * and negative buttons on the dialog
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the player
+                deletePlayer();
+            }
+        });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                /*
+                 * User clicked the "Cancel" button, so dismiss the dialog and continue editing the
+                 * player.
+                 */
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    // Perform the deletion of the Player in the database
+    private void deletePlayer() {
+        // Only perform the delete if this is an existing player.
+        if (currentPlayerUri != null) {
+            /*
+             * Call the ContentResolver to delete the player at the given content URI. Pass in null
+             * for the selection and selection args because the currentPlayerUri content URI already
+             * identifies the player that we want.
+             */
+            int rowsDeleted = getContentResolver().delete(currentPlayerUri, null, null);
+
+            // show a toast message depending on whether or not the delete was successful
+            if (rowsDeleted == 0) {
+                // if no rows were delted, then there was an error with the delete
+                Toast.makeText(this, getString(R.string.editor_delete_player_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the delete was successful.
+                Toast.makeText(this, getString(R.string.editor_delete_player_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // close the activity
+        finish();
     }
 
     @Override
@@ -455,13 +559,72 @@ public class SevenWondersEditorActivity extends AppCompatActivity
          * be the only row in the cursor)
          */
         if (cursor.moveToFirst()) {
-            
+            // Find the columns of player attributes that we're interested in.
+            int playerNameColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_NAME);
+            int playerTotalScoreColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_TOTAL);
+            int playerMilitaryColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_MILITARY_CONFLICTS);
+            int playerTreasuryColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_TREASURY);
+            int playerWonderColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_WONDER);
+            int playerCivilianColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_CIVILIAN_STRUCTURES);
+            int playerScientificTotalColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_SCIENTIFIC_STRUCTURES_TOTAL);
+            int playerProtractorSetsColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_PROTRACTOR_SETS);
+            int playerTabletSetsColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_TABLET_SETS);
+            int playerCogsSetsColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_COGS_SETS);
+            int playerDifferentScienceSetsColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_DIFFERENT_SCIENTIFIC_SETS);
+            int playerCommercialColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_COMMERCIAL_STRUCTURES);
+            int playerGuildsColumnIndex = cursor.getColumnIndex(PlayerEntry.COLUMN_GUILDS);
+
+            // Extract out the value from the Cursor for the given column index
+            String playerName = cursor.getString(playerNameColumnIndex);
+            int playerTotal = cursor.getInt(playerTotalScoreColumnIndex);
+            int playerMilitary = cursor.getInt(playerMilitaryColumnIndex);
+            int playerTreasury = cursor.getInt(playerTreasuryColumnIndex);
+            int playerWonder = cursor.getInt(playerWonderColumnIndex);
+            int playerCivilian = cursor.getInt(playerCivilianColumnIndex);
+            int playerScienceTotal = cursor.getInt(playerScientificTotalColumnIndex);
+            int playerProtractors = cursor.getInt(playerProtractorSetsColumnIndex);
+            int playerTablets = cursor.getInt(playerTabletSetsColumnIndex);
+            int playerCogs = cursor.getInt(playerCogsSetsColumnIndex);
+            int playerDifferentScience = cursor.getInt(playerDifferentScienceSetsColumnIndex);
+            int playerCommercial = cursor.getInt(playerCommercialColumnIndex);
+            int playerGuilds = cursor.getInt(playerGuildsColumnIndex);
+
+            // Update the views on the screen with the values from the database
+            playerNameEditText.setText(playerName);
+            playerScoreText.setText(Integer.toString(playerTotal));
+            playerMilitaryPoints.setText(Integer.toString(playerMilitary));
+            playerTreasuryPoints.setText(Integer.toString(playerTreasury));
+            playerWonderPoints.setText(Integer.toString(playerWonder));
+            playerCivilianPoints.setText(Integer.toString(playerCivilian));
+            playerScienceTotalPoints.setText(Integer.toString(playerScienceTotal));
+            playerProtractorsAmt.setText(Integer.toString(playerProtractors));
+            playerTabletsAmt.setText(Integer.toString(playerTablets));
+            playerCogsAmt.setText(Integer.toString(playerCogs));
+            playerDifferentSymbols.setText(Integer.toString(playerDifferentScience));
+            playerCommercialPoints.setText(Integer.toString(playerCommercial));
+            playerGuildsPoints.setText(Integer.toString(playerGuilds));
+
+
         }
 
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        // if the loader is invalidated, clear out all the data from the input fields.
+        playerNameEditText.setText("");
+        playerScoreText.setText("");
+        playerMilitaryPoints.setText("");
+        playerTreasuryPoints.setText("");
+        playerWonderPoints.setText("");
+        playerCivilianPoints.setText("");
+        playerScienceTotalPoints.setText("");
+        playerProtractorsAmt.setText("");
+        playerTabletsAmt.setText("");
+        playerCogsAmt.setText("");
+        playerDifferentSymbols.setText("");
+        playerCommercialPoints.setText("");
+        playerGuildsPoints.setText("");
 
     }
 }
