@@ -1,7 +1,7 @@
 package com.dragonnedevelopment.boardgamecalculator;
 
 import android.content.ContentUris;
-import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,15 +10,14 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
+import android.view.*;
+import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.dragonnedevelopment.boardgamecalculator.Adapters.SevenWondersCursorAdapter;
 import com.dragonnedevelopment.boardgamecalculator.data.GamesContract.PlayerEntry;
-import com.dragonnedevelopment.boardgamecalculator.model.SevenWondersPlayer;
-import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 /**
  * BoardGameCalculator Created by Muir on 26/10/2017.
@@ -32,86 +31,95 @@ public class SevenWondersActivity extends AppCompatActivity implements
     private static final int PLAYER_LOADER = 0;
     SevenWondersCursorAdapter cursorAdapter;
 
-    ExpandableRelativeLayout expandableLayoutSevenWonders;
-
-    SevenWondersPlayer sevenWondersPlayer;
-
-    String playerName;
-    int playerTotalScore;
-    int playerMilitary;
-    int playerTreasury;
-    int playerWonder;
-    int playerCivilian;
-    int playerScientificTotalScore;
-    int playerIdenticalSetsTotalScore;
-    int playerProtractorSets;
-    int playerTabletSets;
-    int playerCogSets;
-    int playerDifferentSets;
-    int playerCommercial;
-    int playerGuilds;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seven_wonders);
 
-        // find the ListView which will be populated with the player data
-        final ListView playerListView = (ListView) findViewById(R.id.sevenWondersList);
-
-        final RelativeLayout scoreCardLayout = (RelativeLayout) findViewById(R.id.playerScoreCard);
-
-
-        // find and set empty view on the ListView, so that it only shows when the list has 0 items
-        View emptyView = findViewById(R.id.sevenWondersEmptyView);
-        playerListView.setEmptyView(emptyView);
-
-        /*
-         * Set up an Adapter to create a list item for each player in the Cursor.
-         */
-        cursorAdapter = new SevenWondersCursorAdapter(this, null);
-        playerListView.setAdapter(cursorAdapter);
-
-        // Kick off the loader
-        getSupportLoaderManager().initLoader(PLAYER_LOADER, null, this);
-
-        // Set up FAB to add player
+        // Set up FAB to open 7WondersEditorActivity
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fabSevenWondersAddPlayer);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                ContentValues values = new ContentValues();
-
-                /**
-                 * Insert a new row for the new player into the provider using the ContentResolver.
-                 * Use the {@link PlayerEntry.CONTENT_URI_SEVENWONDERS} to indicate that we want to
-                 * insert into the 7 Wonders database table. Receive the new content URI that will
-                 * allow us to access the player's data in the future.
-                 */
-                //Uri newUri = getContentResolver().insert(PlayerEntry.CONTENT_URI_SEVENWONDERS, values);
+                Intent intent = new Intent(SevenWondersActivity.this, SevenWondersEditorActivity.class);
+                startActivity(intent);
             }
         });
 
-    }
+        // Find the ListView which will be populated with the player data
+        ListView playerListView = (ListView) findViewById(R.id.sevenWondersList);
 
-    // Set up the expandable button click listener
-    public void expandableButton1(AdapterView<?> adapterView, View view, int position, long id) {
-        expandableLayoutSevenWonders = (ExpandableRelativeLayout) findViewById(R.id.expandableScoreCalculator1);
-        expandableLayoutSevenWonders.toggle(); // toggle expand and collapse
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items
+        View emptyView = findViewById(R.id.sevenWondersEmptyView);
+        playerListView.setEmptyView(emptyView);
 
         /*
-         * form the content URI that represents the specific player that was clicked on, by
-         * appending the "id" (passed as input to this method) onto the
-         * {@link PlayerEndter#CONTENT_URI_SEVENWONDERS}. For example, the URI would be
-         * "content://com.dragonnedevelopment.boardgamecalculator/sevenwonders/2" if the player
-         * with ID 2 was clicked on
+         * Set up an Adapter to create a list item for each row of player data in the Cursor. There
+         * is no player data yet (until the loader finishes) so pass in null for the Cursor.
          */
+        cursorAdapter = new SevenWondersCursorAdapter(this, null);
+        playerListView.setAdapter(cursorAdapter);
 
-        Uri currentPlayerUri = ContentUris.withAppendedId(PlayerEntry.CONTENT_URI_SEVENWONDERS, id);
+        // Set up the item click listener
+        playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Create a new intent to go to {@link SevenWondersEditorActivity}
+                Intent intent = new Intent(SevenWondersActivity.this, SevenWondersEditorActivity.class);
+
+                /*
+                 * form the content URI that represents the specific player that was clicked on, by
+                 * appending the "id" (passed as input to this method) onto the
+                 * {@link PlayerEntry#CONENT_URI}.
+                 */
+                Uri currentPlayerUri = ContentUris.withAppendedId(PlayerEntry.CONTENT_URI_SEVENWONDERS, id);
+
+                // Set the URI on the data field of the intent
+                intent.setData(currentPlayerUri);
+
+                // Launch the {@link SevenWondersEditorActivity} to display the data for the current player
+                startActivity(intent);
+            }
+        });
+
+        // Kick off the loader
+        getSupportLoaderManager().initLoader(PLAYER_LOADER, null, this);
 
     }
 
+    /*
+     * helper method to delete all players in the Seven Wonders database table
+     */
+    private void deleteAllPlayers() {
+        int rowsDeleted = getContentResolver()
+                .delete(PlayerEntry.CONTENT_URI_SEVENWONDERS, null, null);
+
+        Log.v("SevenWondersActivity",
+                rowsDeleted + " rows deleted from 7 Wonders player database");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /*
+         * Inflate the menu options from the res/menu/menu_catalog.xml file. This adds menu items
+         * to the app bar.
+         */
+        //TODO: create menu_catalog.xml in the menu subfolder
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu.
+        switch (item.getItemId()) {
+            // Respond to a click on the "Delete all entries" menu option
+            case R.id.action_delete_all_entries:
+                deleteAllPlayers();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -119,18 +127,7 @@ public class SevenWondersActivity extends AppCompatActivity implements
         String[] projection = {
                 PlayerEntry._ID,
                 PlayerEntry.COLUMN_NAME,
-                PlayerEntry.COLUMN_MILITARY_CONFLICTS,
-                PlayerEntry.COLUMN_TREASURY,
-                PlayerEntry.COLUMN_WONDER,
-                PlayerEntry.COLUMN_CIVILIAN_STRUCTURES,
-                PlayerEntry.COLUMN_SCIENTIFIC_STRUCTURES_TOTAL,
-                PlayerEntry.COLUMN_IDENTICAL_SCIENTIFIC_SETS,
-                PlayerEntry.COLUMN_PROTRACTOR_SETS,
-                PlayerEntry.COLUMN_TABLET_SETS,
-                PlayerEntry.COLUMN_COGS_SETS,
-                PlayerEntry.COLUMN_DIFFERENT_SCIENTIFIC_SETS,
-                PlayerEntry.COLUMN_COMMERCIAL_STRUCTURES,
-                PlayerEntry.COLUMN_GUILDS};
+                PlayerEntry.COLUMN_TOTAL};
 
         // This loader will execute the contentProvider's query method on a background thread.
         return new CursorLoader(
